@@ -15,14 +15,16 @@ class TodoController extends Controller
 
         return view('todo.index', ['todoList' => $todoList]);
     }
-    public function create() {
+    public function create()
+    {
         return view('todo.create');
     }
-    public function store(Request $request) {
-        $content = $request->input('content');
+    public function store(Request $request)
+    {
+        $inputs = $request->all();
 
         $todo = new Todo();
-        $todo->content = $content;
+        $todo->fill($inputs);
         $todo->save();
 
         return redirect()->route('todo.index');
